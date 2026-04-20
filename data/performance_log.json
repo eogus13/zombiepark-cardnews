@@ -41,8 +41,15 @@
       "post_id": "e2e",
       "permalink": "",
       "success": true,
-      "insights": null,
-      "energy_score": null
+      "insights": {
+        "likes": 0,
+        "comments": 0,
+        "saved": 0,
+        "shares": 0,
+        "reach": 0,
+        "energy_score": 0
+      },
+      "energy_score": 0
     },
     {
       "content_id": "W0002",
@@ -52,8 +59,15 @@
       "post_id": "17947159317150934",
       "permalink": "https://www.instagram.com/p/DXVwndaDNVE/",
       "success": true,
-      "insights": null,
-      "energy_score": null
+      "insights": {
+        "likes": 0,
+        "comments": 0,
+        "saved": 0,
+        "shares": 0,
+        "reach": 0,
+        "energy_score": 0
+      },
+      "energy_score": 0
     },
     {
       "content_id": "W0003",
@@ -63,8 +77,15 @@
       "post_id": "dry_run",
       "permalink": "",
       "success": true,
-      "insights": null,
-      "energy_score": null
+      "insights": {
+        "likes": 0,
+        "comments": 0,
+        "saved": 0,
+        "shares": 0,
+        "reach": 0,
+        "energy_score": 0
+      },
+      "energy_score": 0
     },
     {
       "content_id": "W0003",
@@ -74,8 +95,15 @@
       "post_id": "dry_run",
       "permalink": "",
       "success": true,
-      "insights": null,
-      "energy_score": null
+      "insights": {
+        "likes": 0,
+        "comments": 0,
+        "saved": 0,
+        "shares": 0,
+        "reach": 0,
+        "energy_score": 0
+      },
+      "energy_score": 0
     },
     {
       "content_id": "W0003",
@@ -85,8 +113,15 @@
       "post_id": "17886297537472907",
       "permalink": "https://www.instagram.com/p/DXV2rwXGj8V/",
       "success": true,
-      "insights": null,
-      "energy_score": null
+      "insights": {
+        "likes": 0,
+        "comments": 0,
+        "saved": 0,
+        "shares": 0,
+        "reach": 0,
+        "energy_score": 0
+      },
+      "energy_score": 0
     }
   ]
 }
