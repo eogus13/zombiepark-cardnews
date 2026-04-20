@@ -26,6 +26,7 @@ env:
   DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
 
 jobs:
+  # ─── 1차 시도: 정상 파이프라인 ───
   publish:
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -61,3 +62,141 @@ jobs:
           git add data/
           git diff --staged --quiet || git commit -m "📊 daily publish: $(date +%Y-%m-%d)"
           git push || true
+
+  # ─── 2차 시도: 실패 학습 기반 자동 재시도 ───
+  retry-on-failure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: publish
+    if: failure()
+
+    steps:
+      - name: 📥 체크아웃 (최신 데이터 포함)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: 🔄 최신 데이터 가져오기
+        run: git pull origin main || true
+
+      - name: 🐍 Python 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 📦 의존성 설치
+        run: pip install -r requirements.txt
+
+      - name: 🔤 한글 폰트 다운로드
+        run: |
+          mkdir -p assets/fonts
+          curl -L -o assets/fonts/Pretendard-Bold.otf \
+            "https://github.com/orioncactus/pretendard/raw/main/packages/pretendard/dist/public/static/Pretendard-Bold.otf"
+
+      - name: ⏳ 실패 학습 대기 (2분)
+        run: |
+          echo "🔄 이전 시도 실패. 2분 대기 후 재시도합니다..."
+          echo "   대기 이유: API 일시 오류 회복 시간 확보"
+          sleep 120
+
+      - name: 🧠 실패 원인 분석
+        run: |
+          python -c "
+          from src.retry_strategy import get_retry_strategy
+          strategy = get_retry_strategy()
+          print('━' * 50)
+          print('🧠 실패 분석 결과:')
+          print(f'   재시도 가능: {strategy[\"should_retry\"]}')
+          print(f'   시도 횟수: #{strategy[\"attempt\"]}')
+          print(f'   Gemini 텍스트 스킵: {strategy[\"skip_gemini_text\"]}')
+          print(f'   Gemini 에이전트 스킵: {strategy[\"skip_gemini_agent\"]}')
+          print(f'   폴백 이미지 강제: {strategy[\"force_fallback_images\"]}')
+          print(f'   추가 대기: {strategy[\"extra_wait_seconds\"]}초')
+          print(f'   전략: {strategy[\"reason\"]}')
+          print('━' * 50)
+          "
+
+      - name: 🔄 재시도 파이프라인 실행
+        env:
+          RETRY_MODE: 'true'
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+        run: python main.py
+
+      - name: 💾 데이터 변경사항 커밋
+        run: |
+          git config user.name "zombiepark-bot"
+          git config user.email "bot@zombiepark.com"
+          git add data/
+          git diff --staged --quiet || git commit -m "🔄 retry publish: $(date +%Y-%m-%d)"
+          git push || true
+
+  # ─── 3차 시도: 최종 안전망 (최소 기능) ───
+  final-fallback:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: retry-on-failure
+    if: failure()
+
+    steps:
+      - name: 📥 체크아웃
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: 🔄 최신 데이터 가져오기
+        run: git pull origin main || true
+
+      - name: 🐍 Python 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 📦 의존성 설치
+        run: pip install -r requirements.txt
+
+      - name: 🔤 한글 폰트 다운로드
+        run: |
+          mkdir -p assets/fonts
+          curl -L -o assets/fonts/Pretendard-Bold.otf \
+            "https://github.com/orioncactus/pretendard/raw/main/packages/pretendard/dist/public/static/Pretendard-Bold.otf"
+
+      - name: ⏳ 최종 재시도 대기 (5분)
+        run: |
+          echo "🛡️ 최종 안전망 실행. 5분 대기 후 최소 기능 모드로 재시도..."
+          sleep 300
+
+      - name: 🛡️ 최종 안전망 파이프라인 (최소 기능)
+        env:
+          RETRY_MODE: 'true'
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+        run: python main.py
+
+      - name: 💾 데이터 변경사항 커밋
+        run: |
+          git config user.name "zombiepark-bot"
+          git config user.email "bot@zombiepark.com"
+          git add data/
+          git diff --staged --quiet || git commit -m "🛡️ final fallback publish: $(date +%Y-%m-%d)"
+          git push || true
+
+      - name: 📢 최종 실패 알림 (3회 모두 실패 시)
+        if: failure()
+        run: |
+          python -c "
+          from src.logger import log_to_discord
+          from src.retry_strategy import get_failure_summary
+          summary = get_failure_summary(days=1)
+          log_to_discord(
+              title='🚨 일일 발행 3회 모두 실패',
+              description=(
+                  f\"오늘의 카드뉴스 발행이 3회 시도 모두 실패했습니다.\n\"
+                  f\"실패 {summary['total_failures']}건\n\"
+                  f\"주요 원인: {summary['most_common_type']}\n\"
+                  f\"실패 단계: {summary['most_common_step']}\n\n\"
+                  f\"수동 확인이 필요합니다.\"
+              ),
+              color=0xFF0000,
+          )
+          "
