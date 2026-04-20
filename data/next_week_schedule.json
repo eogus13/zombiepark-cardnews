@@ -1,8 +1,44 @@
 {
-  "2026-04-20": {
-    "id": "W0001",
+  "2026-04-21": {
+    "id": "W0004",
+    "type": "quiz",
+    "title": "🚨 좀비 사태 발생! 첫 1시간, 당신의 선택은?",
+    "weekday": "Tuesday"
+  },
+  "2026-04-22": {
+    "id": "W0005",
+    "type": "fact_check",
+    "title": "영화 '28일 후' 레이지 바이러스, 정말 가능할까? 🧟‍♀️",
+    "weekday": "Wednesday"
+  },
+  "2026-04-23": {
+    "id": "W0006",
+    "type": "survival_skill",
+    "title": "💧 전기가 끊겨도 OK! 안전한 식수 확보법 2가지",
+    "weekday": "Thursday"
+  },
+  "2026-04-24": {
+    "id": "W0007",
+    "type": "culture_story",
+    "title": "🛒 쇼핑몰을 배회하는 좀비? '시체들의 새벽' 속 숨겨진 이야기",
+    "weekday": "Friday"
+  },
+  "2026-04-25": {
+    "id": "W0008",
+    "type": "scenario",
+    "title": "🩸 당신의 동료가 물렸다! 당신의 선택은?",
+    "weekday": "Saturday"
+  },
+  "2026-04-26": {
+    "id": "W0009",
+    "type": "yeongheung_tmi",
+    "title": "📍 영흥도, 왜 좀비 아포칼립스 최후의 보루인가? (TMI)",
+    "weekday": "Sunday"
+  },
+  "2026-04-27": {
+    "id": "W0010",
     "type": "did_you_know",
-    "title": "좀비 곰팡이 테스트",
+    "title": "✨ 좀비파크, 단순한 놀이공원이 아닙니다.",
     "weekday": "Monday"
   }
 }

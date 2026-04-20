@@ -1,66 +1,198 @@
 {
-  "01. 좀비 영화 종합.md": {
-    "hash": "5b8eca1589d86dc9fe78c36fc1a57f56",
-    "size": 6972
-  },
-  "04. 유튜브 콘텐츠 소재집.md": {
-    "hash": "d8f6adfb1f537b7d703597e02fc7e6b6",
-    "size": 4316
-  },
-  "04. 지원사업 정리.md": {
-    "hash": "1985f7bf86a37a943d4867227280c3b6",
-    "size": 3211
-  },
-  "03. 상황별 훈련 구역 설계.md": {
-    "hash": "2fc2bca2fd1f3596a787cf1de3c04e7e",
-    "size": 2970
-  },
   "README.md": {
     "hash": "6943346495c7030d81ae334bd6b4dcc2",
     "size": 2680
-  },
-  "03. 좀비 신화·설화·민속·과학.md": {
-    "hash": "d2bb68c60e318ffd5e873b0b725e4bcd",
-    "size": 7403
-  },
-  "_INDEX.md": {
-    "hash": "c292be96fc285f173b6364f2d31b24a8",
-    "size": 1314
-  },
-  "business-profile.md": {
-    "hash": "c45bf6dd2785abcd90f899e65577b548",
-    "size": 1199
-  },
-  "00. 좀비파크 프로젝트 개요.md": {
-    "hash": "a2e2c174ff9822705df689037b26cf07",
-    "size": 1365
-  },
-  "02. 만약 감염된다면 — 상황별 대응 매뉴얼.md": {
-    "hash": "02a5635d45eed03a9f1efbe43d8fd959",
-    "size": 3141
-  },
-  "01. 어떤 상황이 올 수 있는가 — 시나리오집.md": {
-    "hash": "c990899d15b0972be0d29f36a1a69c65",
-    "size": 5175
-  },
-  "05. 인류는 계속 경고받아왔다 — 타임라인.md": {
-    "hash": "a6bd22ced61c3c9c3b856ed4659a6a17",
-    "size": 4256
-  },
-  "02. 마스터플랜 초안.md": {
-    "hash": "d7fcbb1b75cb06aeeecb9883acc5b702",
-    "size": 2668
   },
   "03. 1단계 예산 및 우선순위.md": {
     "hash": "143141b9fd627e8ac6011be7c475bfe0",
     "size": 1678
   },
-  "02. 좀비 드라마·애니·게임·웹툰.md": {
-    "hash": "bd3e31436c7b88661c3b0cb4074c0ce6",
-    "size": 5347
+  "02. 만약 감염된다면 — 상황별 대응 매뉴얼.md": {
+    "hash": "02a5635d45eed03a9f1efbe43d8fd959",
+    "size": 3141
+  },
+  "04. 지원사업 정리.md": {
+    "hash": "1985f7bf86a37a943d4867227280c3b6",
+    "size": 3211
+  },
+  "01. 어떤 상황이 올 수 있는가 — 시나리오집.md": {
+    "hash": "c990899d15b0972be0d29f36a1a69c65",
+    "size": 5175
   },
   "01. 영흥도 기초 조사.md": {
     "hash": "1116c9b6ca5ae04ecca53c3f373aea3e",
     "size": 2656
+  },
+  "02. 마스터플랜 초안.md": {
+    "hash": "d7fcbb1b75cb06aeeecb9883acc5b702",
+    "size": 2668
+  },
+  "03. 좀비 신화·설화·민속·과학.md": {
+    "hash": "d2bb68c60e318ffd5e873b0b725e4bcd",
+    "size": 7403
+  },
+  "05. 인류는 계속 경고받아왔다 — 타임라인.md": {
+    "hash": "a6bd22ced61c3c9c3b856ed4659a6a17",
+    "size": 4256
+  },
+  "04. 유튜브 콘텐츠 소재집.md": {
+    "hash": "d8f6adfb1f537b7d703597e02fc7e6b6",
+    "size": 4316
+  },
+  "00. 좀비파크 프로젝트 개요.md": {
+    "hash": "a2e2c174ff9822705df689037b26cf07",
+    "size": 1365
+  },
+  "business-profile.md": {
+    "hash": "c45bf6dd2785abcd90f899e65577b548",
+    "size": 1199
+  },
+  "01. 좀비 영화 종합.md": {
+    "hash": "5b8eca1589d86dc9fe78c36fc1a57f56",
+    "size": 6972
+  },
+  "03. 상황별 훈련 구역 설계.md": {
+    "hash": "2fc2bca2fd1f3596a787cf1de3c04e7e",
+    "size": 2970
+  },
+  "02. 좀비 드라마·애니·게임·웹툰.md": {
+    "hash": "bd3e31436c7b88661c3b0cb4074c0ce6",
+    "size": 5347
+  },
+  "_INDEX.md": {
+    "hash": "c292be96fc285f173b6364f2d31b24a8",
+    "size": 1314
+  },
+  "mission-board/좀비파크_MVP_종합보고서.md": {
+    "hash": "68f4fbbabdd6759a93a6172680b8957c",
+    "size": 4796
+  },
+  "mission-board/좀비파크_MVP_종합보고서_v2.md": {
+    "hash": "c039ca5ddf45c8c6cf2c62e0e3f17c1b",
+    "size": 5862
+  },
+  "mission-board/marketing/youtube-channel-plan.md": {
+    "hash": "1e27d0d8b193e133884b4df009c1c8ae",
+    "size": 3318
+  },
+  "mission-board/marketing/content-calendar.md": {
+    "hash": "447b00daf367244dbc5ce8af32af6e5b",
+    "size": 7134
+  },
+  "mission-board/marketing/utm-sheet.md": {
+    "hash": "512ab31d9cadce49d3948139623264ca",
+    "size": 12932
+  },
+  "mission-board/marketing/first-video-script.md": {
+    "hash": "946f5f116347532edd9cfd6c9a13bfab",
+    "size": 5750
+  },
+  "mission-board/marketing/copy-variants.md": {
+    "hash": "bb88dae925ec37c105cc5effb22cdf5e",
+    "size": 5842
+  },
+  "mission-board/marketing/youtube-content-list.md": {
+    "hash": "3789be0e4cd7f0c9e177fc3ec1874f12",
+    "size": 4129
+  },
+  "mission-board/handoff/20260417-marketing-to-data.md": {
+    "hash": "3cecfceb2c91787c5a8fb970746169df",
+    "size": 7755
+  },
+  "mission-board/handoff/TEMPLATE.md": {
+    "hash": "b64696dd4288639017db1da6eac82f83",
+    "size": 174
+  },
+  "mission-board/handoff/20260417-strategy-to-marketing.md": {
+    "hash": "bd3b5569d08bf519a1c9e11ceae89062",
+    "size": 3050
+  },
+  "mission-board/handoff/20260417-strategy-v2-to-marketing.md": {
+    "hash": "9b57d17f6f4d4a4f1f35e964a5ff45e7",
+    "size": 2838
+  },
+  "mission-board/handoff/20260417-data-to-strategy.md": {
+    "hash": "2c0e20a6b71714e2c7953f5246309744",
+    "size": 8397
+  },
+  "mission-board/handoff/20260417-marketing-v2-to-data.md": {
+    "hash": "87fbf9675a144da1ac0abf51b69c3d99",
+    "size": 5741
+  },
+  "mission-board/handoff/20260417-builder-to-marketing.md": {
+    "hash": "fd4c989ffd8af3cd5b906e31dee6ec49",
+    "size": 8097
+  },
+  "mission-board/handoff/20260417-strategy-to-builder.md": {
+    "hash": "f89f827b785368b650dfd257440d0698",
+    "size": 1669
+  },
+  "mission-board/handoff/20260417-builder-to-data.md": {
+    "hash": "6ba6e66c1a1e5558cfaa0020f2a073f0",
+    "size": 11175
+  },
+  "mission-board/handoff/20260417-marketing-summary.md": {
+    "hash": "b7208301f34ca244fcd13dc5898564ef",
+    "size": 5341
+  },
+  "mission-board/strategy/persona.md": {
+    "hash": "e97bd5a292051ca3b9fce859229b8dbd",
+    "size": 2652
+  },
+  "mission-board/strategy/lean-canvas.md": {
+    "hash": "017f66c6ffcc2d762abe9d89883c85bf",
+    "size": 1376
+  },
+  "mission-board/strategy/roadmap-v2.md": {
+    "hash": "82903f9ff930b0f62ef4b3bb47765e71",
+    "size": 3833
+  },
+  "mission-board/strategy/lean-canvas-v2.md": {
+    "hash": "fa663f25b516881b99fb512241591724",
+    "size": 2426
+  },
+  "mission-board/data/weekly-report-template.md": {
+    "hash": "0f7209955c036b5b14f023ab8ee9312a",
+    "size": 9921
+  },
+  "mission-board/data/ga-setup-guide.md": {
+    "hash": "2ab4bc7a4c6167a6fc6f22840c7bb976",
+    "size": 10078
+  },
+  "mission-board/data/event-spec.md": {
+    "hash": "5e43f4f8b402b9abe80392b1598c9baf",
+    "size": 12395
+  },
+  "좀비자료조사/03. 좀비 신화·설화·민속·과학.md": {
+    "hash": "d2bb68c60e318ffd5e873b0b725e4bcd",
+    "size": 7403
+  },
+  "좀비자료조사/01. 좀비 영화 종합.md": {
+    "hash": "5b8eca1589d86dc9fe78c36fc1a57f56",
+    "size": 6972
+  },
+  "좀비자료조사/02. 좀비 드라마·애니·게임·웹툰.md": {
+    "hash": "bd3e31436c7b88661c3b0cb4074c0ce6",
+    "size": 5347
+  },
+  "좀비자료조사/활용별정리/02. 만약 감염된다면 — 상황별 대응 매뉴얼.md": {
+    "hash": "02a5635d45eed03a9f1efbe43d8fd959",
+    "size": 3141
+  },
+  "좀비자료조사/활용별정리/01. 어떤 상황이 올 수 있는가 — 시나리오집.md": {
+    "hash": "c990899d15b0972be0d29f36a1a69c65",
+    "size": 5175
+  },
+  "좀비자료조사/활용별정리/05. 인류는 계속 경고받아왔다 — 타임라인.md": {
+    "hash": "a6bd22ced61c3c9c3b856ed4659a6a17",
+    "size": 4256
+  },
+  "좀비자료조사/활용별정리/04. 유튜브 콘텐츠 소재집.md": {
+    "hash": "d8f6adfb1f537b7d703597e02fc7e6b6",
+    "size": 4316
+  },
+  "좀비자료조사/활용별정리/03. 상황별 훈련 구역 설계.md": {
+    "hash": "2fc2bca2fd1f3596a787cf1de3c04e7e",
+    "size": 2970
   }
 }
