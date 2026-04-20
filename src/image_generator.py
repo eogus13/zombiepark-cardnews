@@ -34,7 +34,16 @@ def generate_images(slides: list, output_dir: str = "/tmp") -> list:
 
         filepath = f"{output_dir}/slide_{slide_num}_raw.png"
 
-        success = _generate_with_pollinations(prompt, filepath)
+        # 최대 2회 시도 (1회 실패 시 seed 변경 후 재시도)
+        success = False
+        for attempt in range(2):
+            if attempt > 0:
+                print(f"   🔄 슬라이드 {slide_num}: 재시도 ({attempt + 1}/2)")
+                time.sleep(3)  # 재시도 전 잠깐 대기
+            success = _generate_with_pollinations(prompt, filepath, attempt)
+            if success:
+                break
+
         if success:
             images.append(filepath)
             print(f"   🎨 슬라이드 {slide_num}: AI 이미지 생성 완료")
@@ -48,8 +57,14 @@ def generate_images(slides: list, output_dir: str = "/tmp") -> list:
     return images
 
 
-def _generate_with_pollinations(prompt: str, filepath: str) -> bool:
-    """Pollinations.ai로 이미지 생성 (무료, API 키 불필요)."""
+def _generate_with_pollinations(prompt: str, filepath: str, attempt: int = 0) -> bool:
+    """Pollinations.ai로 이미지 생성 (무료, API 키 불필요).
+
+    Args:
+        prompt: 이미지 생성 프롬프트
+        filepath: 저장 경로
+        attempt: 시도 횟수 (seed 분산용)
+    """
     try:
         # 좀비파크 테마에 맞는 프롬프트 보강
         enhanced_prompt = (
@@ -58,12 +73,13 @@ def _generate_with_pollinations(prompt: str, filepath: str) -> bool:
         )
 
         encoded_prompt = quote(enhanced_prompt)
+        seed = int(time.time()) + attempt * 1000
         url = (
             f"https://image.pollinations.ai/prompt/{encoded_prompt}"
-            f"?width=1080&height=1080&nologo=true&seed={int(time.time())}"
+            f"?width=1080&height=1080&nologo=true&seed={seed}"
         )
 
-        response = requests.get(url, timeout=90, stream=True)
+        response = requests.get(url, timeout=120, stream=True)
 
         if response.status_code == 200:
             content_type = response.headers.get('content-type', '')
@@ -79,7 +95,7 @@ def _generate_with_pollinations(prompt: str, filepath: str) -> bool:
             return False
 
     except requests.exceptions.Timeout:
-        print(f"   ⚠️ Pollinations API 타임아웃 (90초)")
+        print(f"   ⚠️ Pollinations API 타임아웃 (120초)")
         return False
     except Exception as e:
         print(f"   ⚠️ Pollinations API 호출 실패: {e}")
