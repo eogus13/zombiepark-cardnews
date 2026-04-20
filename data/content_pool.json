@@ -24,8 +24,9 @@
           "text": "질문"
         }
       ],
-      "published": false,
-      "scheduled_date": "2026-04-20"
+      "published": true,
+      "scheduled_date": "2026-04-20",
+      "published_date": "2026-04-20 13:25"
     }
   ]
 }

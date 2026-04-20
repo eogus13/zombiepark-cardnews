@@ -43,6 +43,17 @@
       "success": true,
       "insights": null,
       "energy_score": null
+    },
+    {
+      "content_id": "W0002",
+      "title": "퀴즈 테스트",
+      "type": "quiz",
+      "published_at": "2026-04-20 13:25",
+      "post_id": "17947159317150934",
+      "permalink": "https://www.instagram.com/p/DXVwndaDNVE/",
+      "success": true,
+      "insights": null,
+      "energy_score": null
     }
   ]
 }
