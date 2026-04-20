@@ -1,8 +1,10 @@
-"""Step 3: AI 이미지 생성 — Stability AI SD3로 배경 이미지 생성"""
+"""Step 3: AI 이미지 생성 — Pollinations.ai (무료, API 키 불필요)"""
 
 import os
+import time
 import requests
 from pathlib import Path
+from urllib.parse import quote
 
 
 def generate_images(slides: list, output_dir: str = "/tmp") -> list:
@@ -16,7 +18,6 @@ def generate_images(slides: list, output_dir: str = "/tmp") -> list:
         ["/tmp/slide_1_raw.png", ...] 파일 경로 리스트
     """
     images = []
-    api_key = os.environ.get('STABILITY_API_KEY', '')
 
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
@@ -33,12 +34,11 @@ def generate_images(slides: list, output_dir: str = "/tmp") -> list:
 
         filepath = f"{output_dir}/slide_{slide_num}_raw.png"
 
-        if api_key:
-            success = _generate_with_stability(prompt, filepath, api_key)
-            if success:
-                images.append(filepath)
-                print(f"   🎨 슬라이드 {slide_num}: AI 이미지 생성 완료")
-                continue
+        success = _generate_with_pollinations(prompt, filepath)
+        if success:
+            images.append(filepath)
+            print(f"   🎨 슬라이드 {slide_num}: AI 이미지 생성 완료")
+            continue
 
         # 폴백: 단색 배경
         fallback_path = _create_fallback_image(slide_num, output_dir)
@@ -48,35 +48,41 @@ def generate_images(slides: list, output_dir: str = "/tmp") -> list:
     return images
 
 
-def _generate_with_stability(prompt: str, filepath: str, api_key: str) -> bool:
-    """Stability AI SD3 API로 이미지 생성."""
+def _generate_with_pollinations(prompt: str, filepath: str) -> bool:
+    """Pollinations.ai로 이미지 생성 (무료, API 키 불필요)."""
     try:
-        response = requests.post(
-            "https://api.stability.ai/v2beta/stable-image/generate/sd3",
-            headers={
-                "Authorization": f"Bearer {api_key}",
-                "Accept": "image/*"
-            },
-            files={"none": ''},
-            data={
-                "prompt": prompt,
-                "output_format": "png",
-                "aspect_ratio": "1:1",
-                "model": "sd3-medium"
-            },
-            timeout=60
+        # 좀비파크 테마에 맞는 프롬프트 보강
+        enhanced_prompt = (
+            f"{prompt}, dark cinematic style, horror atmosphere, "
+            "neon green and dark purple color scheme, high quality, detailed"
         )
 
+        encoded_prompt = quote(enhanced_prompt)
+        url = (
+            f"https://image.pollinations.ai/prompt/{encoded_prompt}"
+            f"?width=1080&height=1080&nologo=true&seed={int(time.time())}"
+        )
+
+        response = requests.get(url, timeout=90, stream=True)
+
         if response.status_code == 200:
-            with open(filepath, 'wb') as f:
-                f.write(response.content)
-            return True
+            content_type = response.headers.get('content-type', '')
+            if 'image' in content_type or len(response.content) > 10000:
+                with open(filepath, 'wb') as f:
+                    f.write(response.content)
+                return True
+            else:
+                print(f"   ⚠️ Pollinations 응답이 이미지가 아님")
+                return False
         else:
-            print(f"   ⚠️ Stability API 에러: {response.status_code}")
+            print(f"   ⚠️ Pollinations API 에러: {response.status_code}")
             return False
 
+    except requests.exceptions.Timeout:
+        print(f"   ⚠️ Pollinations API 타임아웃 (90초)")
+        return False
     except Exception as e:
-        print(f"   ⚠️ Stability API 호출 실패: {e}")
+        print(f"   ⚠️ Pollinations API 호출 실패: {e}")
         return False
 
 
