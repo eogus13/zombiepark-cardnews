@@ -1,4 +1,10 @@
 {
+  "2026-04-20": {
+    "id": "W0010",
+    "type": "did_you_know",
+    "title": "✨ 좀비파크, 단순한 놀이공원이 아닙니다.",
+    "weekday": "Monday"
+  },
   "2026-04-21": {
     "id": "W0004",
     "type": "quiz",
@@ -36,9 +42,10 @@
     "weekday": "Sunday"
   },
   "2026-04-27": {
-    "id": "W0010",
+    "id": "",
     "type": "did_you_know",
-    "title": "✨ 좀비파크, 단순한 놀이공원이 아닙니다.",
-    "weekday": "Monday"
+    "title": "",
+    "weekday": "Monday",
+    "note": "W0010은 4/20에 발행됨. 금요일 weekly-update에서 새 콘텐츠 생성 예정"
   }
 }

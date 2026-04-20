@@ -2,6 +2,7 @@
 
 import os
 import json
+import time
 
 from src.image_generator import get_style_for_type
 
@@ -57,29 +58,49 @@ JSON만 출력:
   "caption": "...",
   "hashtags": [...]}}"""
 
-    response = client.models.generate_content(
-        model='gemini-2.5-flash', contents=prompt
-    )
+    # 최대 3회 재시도 (503 등 일시적 오류 대비)
+    max_retries = 3
+    backoff_seconds = [10, 20, 30]
 
-    try:
-        text = response.text.strip()
-        # ```json ... ``` 형태 처리
-        if text.startswith("```"):
-            text = text.split("\n", 1)[1]
-            text = text.rsplit("```", 1)[0]
-        result = json.loads(text)
+    for attempt in range(max_retries):
+        try:
+            response = client.models.generate_content(
+                model='gemini-2.5-flash', contents=prompt
+            )
 
-        # 필수 키 보장
-        result.setdefault("slides", content.get("slides", []))
-        result.setdefault("caption", content.get("caption", ""))
-        result.setdefault("hashtags", content.get("hashtags", ["#좀비파크"]))
+            text = response.text.strip()
+            # ```json ... ``` 형태 처리
+            if text.startswith("```"):
+                text = text.split("\n", 1)[1]
+                text = text.rsplit("```", 1)[0]
+            result = json.loads(text)
 
-        return result
+            # 필수 키 보장
+            result.setdefault("slides", content.get("slides", []))
+            result.setdefault("caption", content.get("caption", ""))
+            result.setdefault("hashtags", content.get("hashtags", ["#좀비파크"]))
 
-    except (json.JSONDecodeError, Exception) as e:
-        print(f"   ⚠️ AI 텍스트 파싱 실패: {e}. 원본 텍스트 사용.")
-        # 폴백: 원본 텍스트에 기본 이미지 프롬프트 추가
-        return _fallback_text(content)
+            return result
+
+        except json.JSONDecodeError as e:
+            print(f"   ⚠️ AI 텍스트 파싱 실패: {e}. 원본 텍스트 사용.")
+            return _fallback_text(content)
+
+        except Exception as e:
+            error_str = str(e)
+            if attempt < max_retries - 1 and ("503" in error_str or "UNAVAILABLE" in error_str or "overloaded" in error_str.lower()):
+                wait = backoff_seconds[attempt]
+                print(f"   ⚠️ Gemini API 일시 오류 (시도 {attempt + 1}/{max_retries}): {e}")
+                print(f"   ⏳ {wait}초 후 재시도...")
+                time.sleep(wait)
+                continue
+            else:
+                print(f"   ⚠️ Gemini API 호출 실패: {e}. 폴백 텍스트 사용.")
+                return _fallback_text(content)
+
+    # 모든 재시도 실패
+    print(f"   ⚠️ Gemini API {max_retries}회 재시도 모두 실패. 폴백 텍스트 사용.")
+    return _fallback_text(content)
 
 
 def _fallback_text(content: dict) -> dict:
