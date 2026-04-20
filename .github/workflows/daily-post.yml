@@ -51,6 +51,8 @@ jobs:
             "https://github.com/orioncactus/pretendard/raw/main/packages/pretendard/dist/public/static/Pretendard-Bold.otf"
 
       - name: 🧟 일일 파이프라인 실행
+        env:
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
         run: python main.py
 
       - name: 💾 데이터 변경사항 커밋

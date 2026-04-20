@@ -35,9 +35,8 @@ def build_weekly_content(changes: dict,
         print("   ⚠️ Gemini API 키 없음. 콘텐츠 생성 불가.")
         return []
 
-    import google.generativeai as genai
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-2.5-flash')
+    from google import genai
+    client = genai.Client(api_key=api_key)
 
     # 1) 전체 옵시디언 자료 수집
     all_source_texts = _collect_source_material(Path(obsidian_path))
@@ -103,7 +102,9 @@ def build_weekly_content(changes: dict,
 - 캡션은 호기심 유발하는 첫 줄이 핵심
 - JSON만 출력하세요. 설명 없이."""
 
-    response = model.generate_content(prompt)
+    response = client.models.generate_content(
+        model='gemini-2.5-flash', contents=prompt
+    )
 
     try:
         # JSON 블록 추출 (```json ... ``` 형태일 수 있음)

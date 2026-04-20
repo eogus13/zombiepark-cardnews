@@ -7,9 +7,11 @@
 
 import os
 import json
+import requests
 from datetime import datetime, timezone, timedelta
 
 from src.utils import load_json, save_json
+from src.logger import log_error
 
 KST = timezone(timedelta(hours=9))
 FEEDBACK_PATH = "data/agent_feedback.json"
@@ -45,9 +47,8 @@ def strategy_enhance(contents: list) -> list:
             content.setdefault("angle", "")
         return contents
 
-    import google.generativeai as genai
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-2.5-flash')
+    from google import genai
+    client = genai.Client(api_key=api_key)
 
     # 피드백 데이터 로드
     feedback = load_json(FEEDBACK_PATH)
@@ -86,7 +87,9 @@ def strategy_enhance(contents: list) -> list:
 JSON 배열만 출력 (원본 필드 유지 + 위 4개 추가):"""
 
     try:
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(
+            model='gemini-2.5-flash', contents=prompt
+        )
         text = response.text.strip()
         if text.startswith("```"):
             text = text.split("\n", 1)[1]
@@ -107,6 +110,7 @@ JSON 배열만 출력 (원본 필드 유지 + 위 4개 추가):"""
 
     except Exception as e:
         print(f"   ⚠️ 전략가 에이전트 실패: {e}. 기본값 적용.")
+        log_error("strategist_agent", f"전략가 에이전트 실패: {e}")
         # 폴백: 기본 메타데이터
         for content in contents:
             content.setdefault("target_persona", "일반_관광")
@@ -139,9 +143,8 @@ def marketer_enhance(content: dict, slides_text: list) -> dict:
         print("   ⚠️ Gemini API 키 없음. 마케터 강화 건너뜀.")
         return content
 
-    import google.generativeai as genai
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-2.5-flash')
+    from google import genai
+    client = genai.Client(api_key=api_key)
 
     feedback = load_json(FEEDBACK_PATH)
     top_patterns = feedback.get("top_caption_patterns", [])
@@ -187,7 +190,9 @@ JSON만 출력:
   "psychology_used": ["사용된 심리 기법"]}}"""
 
     try:
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(
+            model='gemini-2.5-flash', contents=prompt
+        )
         text = response.text.strip()
         if text.startswith("```"):
             text = text.split("\n", 1)[1]
@@ -206,6 +211,7 @@ JSON만 출력:
 
     except Exception as e:
         print(f"   ⚠️ 마케터 에이전트 실패: {e}. 원본 캡션 유지.")
+        log_error("marketer_agent", f"마케터 에이전트 실패: {e}")
         return content
 
 
@@ -287,8 +293,6 @@ def update_performance_insights() -> int:
     Returns:
         업데이트된 포스트 수
     """
-    import requests  # noqa: F811 (함수 내 임포트)
-
     perf = load_json(PERFORMANCE_LOG_PATH)
     posts = perf.get("posts", [])
     updated = 0

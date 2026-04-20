@@ -31,8 +31,9 @@ def run_collect_insights():
         updated_count = update_performance_insights()
         print(f"   ✅ {updated_count}개 포스트 인사이트 업데이트")
 
-        # ─── Step 2: 주간 분석 (일요일에만) ───
-        if now.weekday() == 6:  # 일요일
+        # ─── Step 2: 주간 분석 (일요일에만, KST 기준) ───
+        kst_now = datetime.now(KST)
+        if kst_now.weekday() == 6:  # 일요일 (KST 기준)
             print("\n🧠 Step 2: 주간 성과 분석")
             analysis = generate_weekly_analysis()
 

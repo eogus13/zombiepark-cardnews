@@ -133,7 +133,7 @@ def publish_single_image(image_url: str, caption: str) -> dict:
 def _create_media_container(ig_user_id: str, token: str,
                             image_url: str, is_carousel_item: bool = False,
                             caption: str = "") -> str | None:
-    """개별 미디어 컨테이너 생성."""
+    """개별 미디어 컨테이너 생성 (최대 3회 재시도)."""
     url = f"{GRAPH_API_BASE}/{ig_user_id}/media"
     params = {
         "image_url": image_url,
@@ -145,13 +145,33 @@ def _create_media_container(ig_user_id: str, token: str,
     else:
         params["caption"] = caption
 
-    resp = requests.post(url, data=params, timeout=30)
-    data = resp.json()
+    for attempt in range(3):
+        try:
+            resp = requests.post(url, data=params, timeout=30)
+            data = resp.json()
 
-    if "id" in data:
-        return data["id"]
+            if "id" in data:
+                return data["id"]
 
-    print(f"   ⚠️ 컨테이너 생성 에러: {data.get('error', data)}")
+            error = data.get("error", {})
+            error_code = error.get("code", 0)
+
+            # 레이트 리밋(4, 32) 또는 임시 에러(2) → 재시도
+            if error_code in (2, 4, 32):
+                wait = 5 * (attempt + 1)
+                print(f"   ⏳ API 제한... {wait}초 대기 (시도 {attempt+1}/3)")
+                time.sleep(wait)
+                continue
+
+            print(f"   ⚠️ 컨테이너 생성 에러: {error}")
+            return None
+
+        except requests.exceptions.Timeout:
+            wait = 5 * (attempt + 1)
+            print(f"   ⏳ 타임아웃... {wait}초 대기 (시도 {attempt+1}/3)")
+            time.sleep(wait)
+
+    print("   ⚠️ 컨테이너 생성 재시도 초과")
     return None
 
 

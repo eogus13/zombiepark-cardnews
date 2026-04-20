@@ -24,9 +24,8 @@ def generate_text(content: dict) -> dict:
         print("   ⚠️ Gemini API 키 없음. 폴백 텍스트 사용.")
         return _fallback_text(content)
 
-    import google.generativeai as genai
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-2.5-flash')
+    from google import genai
+    client = genai.Client(api_key=api_key)
 
     prompt = f"""당신은 좀비파크 인스타그램 카드뉴스 작가입니다.
 아래 콘텐츠를 인스타그램에 최적화된 형태로 다듬어주세요.
@@ -52,7 +51,9 @@ JSON만 출력:
   "caption": "...",
   "hashtags": [...]}}"""
 
-    response = model.generate_content(prompt)
+    response = client.models.generate_content(
+        model='gemini-2.5-flash', contents=prompt
+    )
 
     try:
         text = response.text.strip()

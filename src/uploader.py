@@ -49,14 +49,11 @@ def upload_images(image_paths: list, content_id: str = "card") -> list:
             print(f"   ☁️ 슬라이드 {i+1} 업로드 완료: {result['secure_url'][:60]}...")
 
         except Exception as e:
-            print(f"   ⚠️ 슬라이드 {i+1} 업로드 실패: {e}")
-            # 실패 시 로컬 경로라도 반환 (디버그용)
+            print(f"   ❌ 슬라이드 {i+1} 업로드 실패: {e}")
+            # 실패한 이미지는 error 표시만 (로컬 경로 반환하지 않음)
             uploaded.append({
-                "url": path,
-                "public_id": f"local_{i+1}",
-                "width": 1080,
-                "height": 1080,
-                "error": str(e)
+                "error": str(e),
+                "slide": i + 1,
             })
 
     return uploaded

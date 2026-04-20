@@ -27,10 +27,13 @@ KST = timezone(timedelta(hours=9))
 
 def run_daily_pipeline():
     """일일 카드뉴스 발행 전체 파이프라인."""
+    dry_run = os.environ.get('DRY_RUN', 'false').lower() == 'true'
     now = datetime.now(KST)
     print(f"\n{'='*60}")
     print(f"  🧟 좀비파크 카드뉴스 일일 파이프라인")
     print(f"  📅 {now.strftime('%Y-%m-%d %H:%M KST')}")
+    if dry_run:
+        print(f"  🧪 드라이런 모드 — 실제 발행하지 않음")
     print(f"{'='*60}\n")
 
     output_dir = "/tmp/zombiepark_cards"
@@ -78,6 +81,10 @@ def run_daily_pipeline():
         # ─── Step 5: 텍스트 오버레이 합성 ───
         print("\n🖼️ Step 5: 카드 합성")
         final_images = compose_all_cards(slides, raw_images, output_dir)
+        if not final_images:
+            print("   ❌ 합성된 카드가 0장. 발행 중단.")
+            log_error("composer", "카드 합성 결과 0장")
+            return False
         print(f"   ✅ {len(final_images)}장 최종 카드 완성")
 
         # ─── Step 6: Telegram 미리보기 ───
@@ -85,32 +92,39 @@ def run_daily_pipeline():
         send_preview(content, final_images, caption)
 
         # ─── Step 7: Cloudinary 업로드 ───
-        print("\n☁️ Step 7: Cloudinary 업로드")
-        uploaded = upload_images(final_images, content_id)
-        image_urls = [u["url"] for u in uploaded if "error" not in u]
-
-        if not image_urls:
-            print("   ⚠️ 업로드된 이미지 없음. 발행 중단.")
-            log_error("uploader", "모든 이미지 업로드 실패")
-            return False
-
-        print(f"   ✅ {len(image_urls)}장 업로드 완료")
-
-        # ─── Step 8: Instagram 발행 ───
-        print("\n📸 Step 8: Instagram 발행")
-        if len(image_urls) >= 2:
-            result = publish_carousel(image_urls, caption)
+        if dry_run:
+            print("\n☁️ Step 7: Cloudinary 업로드 (드라이런 — 건너뜀)")
+            print("\n📸 Step 8: Instagram 발행 (드라이런 — 건너뜀)")
+            result = {"success": True, "post_id": "dry_run", "dry_run": True}
+            print("\n📊 Step 9: 결과 처리")
+            print(f"   ✅ 드라이런 완료! 실제 발행 없이 파이프라인 검증 성공.")
         else:
-            result = publish_single_image(image_urls[0], caption)
+            print("\n☁️ Step 7: Cloudinary 업로드")
+            uploaded = upload_images(final_images, content_id)
+            image_urls = [u["url"] for u in uploaded if "error" not in u]
 
-        # ─── Step 9: 발행 결과 처리 ───
-        print("\n📊 Step 9: 결과 처리")
-        if result.get("success"):
-            post_id = result.get("post_id", "")
-            mark_as_published(content_id, post_id)
-            print(f"   ✅ 발행 성공! Post ID: {post_id}")
-        else:
-            print(f"   ❌ 발행 실패: {result.get('error', '')}")
+            if not image_urls:
+                print("   ⚠️ 업로드된 이미지 없음. 발행 중단.")
+                log_error("uploader", "모든 이미지 업로드 실패")
+                return False
+
+            print(f"   ✅ {len(image_urls)}장 업로드 완료")
+
+            # ─── Step 8: Instagram 발행 ───
+            print("\n📸 Step 8: Instagram 발행")
+            if len(image_urls) >= 2:
+                result = publish_carousel(image_urls, caption)
+            else:
+                result = publish_single_image(image_urls[0], caption)
+
+            # ─── Step 9: 발행 결과 처리 ───
+            print("\n📊 Step 9: 결과 처리")
+            if result.get("success"):
+                post_id = result.get("post_id", "")
+                mark_as_published(content_id, post_id)
+                print(f"   ✅ 발행 성공! Post ID: {post_id}")
+            else:
+                print(f"   ❌ 발행 실패: {result.get('error', '')}")
 
         # Telegram 결과 알림
         send_publish_result(content_id, result)
