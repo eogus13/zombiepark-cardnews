@@ -102,23 +102,43 @@ def build_weekly_content(changes: dict,
 - 캡션은 호기심 유발하는 첫 줄이 핵심
 - JSON만 출력하세요. 설명 없이."""
 
-    response = client.models.generate_content(
-        model='gemini-2.5-flash', contents=prompt
-    )
+    # Gemini API 호출 (최대 3회 재시도, 503/429 등 일시 오류 대응)
+    import time
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            if attempt > 0:
+                wait_sec = 10 * attempt  # 10초, 20초 대기
+                print(f"   ⏳ {wait_sec}초 대기 후 재시도 ({attempt + 1}/{max_retries})")
+                time.sleep(wait_sec)
 
-    try:
-        # JSON 블록 추출 (```json ... ``` 형태일 수 있음)
-        text = response.text.strip()
-        if text.startswith("```"):
-            text = text.split("\n", 1)[1]  # 첫 줄 제거
-            text = text.rsplit("```", 1)[0]  # 마지막 ``` 제거
-        contents = json.loads(text)
-        if len(contents) != 7:
-            print(f"   ⚠️ {len(contents)}개 생성됨 (7개 필요)")
-        return contents
-    except json.JSONDecodeError as e:
-        print(f"   ⚠️ AI 응답 파싱 실패: {e}")
-        return []
+            response = client.models.generate_content(
+                model='gemini-2.5-flash', contents=prompt
+            )
+
+            # JSON 블록 추출 (```json ... ``` 형태일 수 있음)
+            text = response.text.strip()
+            if text.startswith("```"):
+                text = text.split("\n", 1)[1]  # 첫 줄 제거
+                text = text.rsplit("```", 1)[0]  # 마지막 ``` 제거
+            contents = json.loads(text)
+            if len(contents) != 7:
+                print(f"   ⚠️ {len(contents)}개 생성됨 (7개 필요)")
+            return contents
+
+        except json.JSONDecodeError as e:
+            print(f"   ⚠️ AI 응답 파싱 실패: {e}")
+            if attempt < max_retries - 1:
+                continue
+            return []
+        except Exception as e:
+            error_msg = str(e)
+            print(f"   ⚠️ Gemini API 오류 (시도 {attempt + 1}/{max_retries}): {error_msg}")
+            if attempt >= max_retries - 1:
+                print(f"   ❌ 최대 재시도 횟수 초과. 콘텐츠 생성 실패.")
+                return []
+
+    return []
 
 
 def save_weekly_content(contents: list) -> dict:
