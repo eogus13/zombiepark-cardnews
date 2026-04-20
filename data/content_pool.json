@@ -61,8 +61,8 @@
         "#서바이벌",
         "#생존체험"
       ],
-      "published": false,
-      "published_date": null,
+      "published": true,
+      "published_date": "2026-04-20 14:18",
       "created_date": "2026-04-20",
       "scheduled_date": "2026-04-20"
     }
