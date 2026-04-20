@@ -6,18 +6,71 @@ import requests
 from pathlib import Path
 from urllib.parse import quote
 
+# 콘텐츠 유형별 이미지 프롬프트 스타일 템플릿
+CONTENT_TYPE_STYLES = {
+    "quiz": (
+        "mysterious quiz show atmosphere, glowing question mark, "
+        "dark game show set, spotlight effect, neon green glow, "
+        "cinematic horror quiz scene"
+    ),
+    "did_you_know": (
+        "shocking discovery moment, dramatic reveal lighting, "
+        "single powerful image, dark laboratory or library, "
+        "spotlight on surprising fact, horror documentary style"
+    ),
+    "survival_skill": (
+        "post-apocalyptic survival training scene, rugged outdoor setting, "
+        "tactical gear and tools, wilderness survival camp, "
+        "gritty realistic style, survival horror atmosphere"
+    ),
+    "fact_check": (
+        "science fiction meets reality, movie scene recreation, "
+        "split screen real vs fiction feel, forensic analysis lighting, "
+        "dark investigation room, cinematic horror film analysis"
+    ),
+    "culture_story": (
+        "ancient cultural mythology meets horror, traditional folklore scene, "
+        "mystical atmospheric lighting, cultural artifact display, "
+        "dark museum or temple setting, ethereal supernatural atmosphere"
+    ),
+    "scenario": (
+        "interactive survival choice moment, crossroads dramatic scene, "
+        "two-path decision fork, dramatic tension lighting, "
+        "choose your adventure horror, high stakes survival moment"
+    ),
+    "yeongheung_tmi": (
+        "Yeongheung Island Korea scenic dark atmosphere, island coastline, "
+        "abandoned seaside village, Korean island mysterious scenery, "
+        "foggy ocean view, coastal horror setting with local charm"
+    ),
+}
 
-def generate_images(slides: list, output_dir: str = "/tmp") -> list:
+DEFAULT_STYLE = (
+    "cinematic survival horror scene, dark moody atmosphere, "
+    "neon green accents, abandoned island, high contrast, "
+    "dark purple background"
+)
+
+
+def get_style_for_type(content_type: str) -> str:
+    """콘텐츠 유형에 맞는 이미지 스타일 반환."""
+    return CONTENT_TYPE_STYLES.get(content_type, DEFAULT_STYLE)
+
+
+def generate_images(slides: list, output_dir: str = "/tmp",
+                    content_type: str = "") -> list:
     """각 슬라이드의 image_prompt로 배경 이미지 생성.
 
     Args:
         slides: [{"slide": 1, "text": "...", "image_prompt": "..."}]
         output_dir: 이미지 저장 경로
+        content_type: 콘텐츠 유형 (quiz, survival_skill 등)
 
     Returns:
         ["/tmp/slide_1_raw.png", ...] 파일 경로 리스트
     """
     images = []
+    type_style = get_style_for_type(content_type)
 
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
@@ -26,11 +79,7 @@ def generate_images(slides: list, output_dir: str = "/tmp") -> list:
         prompt = slide.get('image_prompt', '')
 
         if not prompt:
-            prompt = (
-                "Cinematic survival horror scene, dark moody atmosphere, "
-                "neon green accents, abandoned island, Instagram square 1:1, "
-                "high contrast, dark purple background"
-            )
+            prompt = f"{type_style}, Instagram square 1:1"
 
         filepath = f"{output_dir}/slide_{slide_num}_raw.png"
 
@@ -69,7 +118,8 @@ def _generate_with_pollinations(prompt: str, filepath: str, attempt: int = 0) ->
         # 좀비파크 테마에 맞는 프롬프트 보강
         enhanced_prompt = (
             f"{prompt}, dark cinematic style, horror atmosphere, "
-            "neon green and dark purple color scheme, high quality, detailed"
+            "neon green and dark purple color scheme, high quality, "
+            "detailed, Instagram square format"
         )
 
         encoded_prompt = quote(enhanced_prompt)

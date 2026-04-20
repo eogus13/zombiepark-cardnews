@@ -75,7 +75,8 @@ def run_daily_pipeline():
 
         # ─── Step 4: AI 이미지 생성 ───
         print("\n🎨 Step 4: AI 이미지 생성")
-        raw_images = generate_images(slides, output_dir)
+        raw_images = generate_images(slides, output_dir,
+                                     content_type=content.get('type', ''))
         print(f"   ✅ {len(raw_images)}장 배경 이미지 생성")
 
         # ─── Step 5: 텍스트 오버레이 합성 ───
