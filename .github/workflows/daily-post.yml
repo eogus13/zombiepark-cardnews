@@ -1,0 +1,62 @@
+name: "🧟 일일 카드뉴스 발행"
+
+on:
+  schedule:
+    # 매일 18:00 KST = 09:00 UTC
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: '드라이런 (발행 없이 테스트)'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+
+env:
+  GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+  STABILITY_API_KEY: ${{ secrets.STABILITY_API_KEY }}
+  CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+  CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+  CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+  INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+  INSTAGRAM_BUSINESS_ID: ${{ secrets.INSTAGRAM_BUSINESS_ID }}
+  TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+  TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+  DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: 📥 체크아웃
+        uses: actions/checkout@v4
+
+      - name: 🐍 Python 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 📦 의존성 설치
+        run: pip install -r requirements.txt
+
+      - name: 🔤 한글 폰트 다운로드
+        run: |
+          mkdir -p assets/fonts
+          curl -L -o assets/fonts/Pretendard-Bold.otf \
+            "https://github.com/orioncactus/pretendard/raw/main/packages/pretendard/dist/public/static/Pretendard-Bold.otf"
+
+      - name: 🧟 일일 파이프라인 실행
+        run: python main.py
+
+      - name: 💾 데이터 변경사항 커밋
+        run: |
+          git config user.name "zombiepark-bot"
+          git config user.email "bot@zombiepark.com"
+          git add data/
+          git diff --staged --quiet || git commit -m "📊 daily publish: $(date +%Y-%m-%d)"
+          git push || true

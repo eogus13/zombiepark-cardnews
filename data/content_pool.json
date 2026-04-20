@@ -1,0 +1,31 @@
+{
+  "content": [
+    {
+      "id": "W0001",
+      "type": "did_you_know",
+      "title": "좀비 곰팡이 테스트",
+      "slides": [
+        {
+          "slide": 1,
+          "text": "테스트"
+        }
+      ],
+      "published": true,
+      "scheduled_date": "2026-04-20",
+      "published_date": "2026-04-20 09:30"
+    },
+    {
+      "id": "W0002",
+      "type": "quiz",
+      "title": "퀴즈 테스트",
+      "slides": [
+        {
+          "slide": 1,
+          "text": "질문"
+        }
+      ],
+      "published": false,
+      "scheduled_date": "2026-04-20"
+    }
+  ]
+}

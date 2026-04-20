@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-04-20 09:45",
+  "period_posts": 2,
+  "overall_avg_energy": 22.5,
+  "type_averages": {
+    "quiz": 15.0,
+    "did_you_know": 30.0
+  },
+  "best_post": {
+    "id": "W0011",
+    "title": "실패 테스트",
+    "type": "did_you_know",
+    "energy": 30
+  },
+  "worst_post": {
+    "id": "W0010",
+    "title": "테스트 콘텐츠",
+    "type": "quiz",
+    "energy": 15
+  },
+  "recommendations": [
+    "did_you_know 유형이 가장 높은 반응 (평균 30.0)",
+    "quiz 유형 개선 필요 (평균 15.0)"
+  ],
+  "top_caption_patterns": []
+}

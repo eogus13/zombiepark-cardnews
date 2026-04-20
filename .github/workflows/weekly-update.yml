@@ -1,0 +1,51 @@
+name: "📋 주간 콘텐츠 생성"
+
+on:
+  schedule:
+    # 매주 금요일 10:00 KST = 01:00 UTC
+    - cron: '0 1 * * 5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+  TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+  TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+  DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+  OBSIDIAN_VAULT_PATH: 'obsidian_data'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: 📥 체크아웃
+        uses: actions/checkout@v4
+
+      - name: 🐍 Python 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 📦 의존성 설치
+        run: pip install -r requirements.txt
+
+      - name: 📂 옵시디언 데이터 준비
+        run: |
+          # obsidian_data 폴더가 없으면 빈 폴더 생성
+          mkdir -p obsidian_data
+
+      - name: 📋 주간 콘텐츠 생성
+        run: python weekly_update.py
+
+      - name: 💾 콘텐츠 커밋 + 푸시
+        run: |
+          git config user.name "zombiepark-bot"
+          git config user.email "bot@zombiepark.com"
+          git add data/
+          git diff --staged --quiet || git commit -m "📋 weekly content: $(date +%Y-%m-%d)"
+          git push || true

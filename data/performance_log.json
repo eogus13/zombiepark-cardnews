@@ -1,0 +1,48 @@
+{
+  "posts": [
+    {
+      "content_id": "W0010",
+      "title": "테스트 콘텐츠",
+      "type": "quiz",
+      "published_at": "2026-04-20 09:43",
+      "post_id": "test_123",
+      "permalink": "https://instagram.com/p/test",
+      "success": true,
+      "insights": {
+        "likes": 10,
+        "comments": 5,
+        "saved": 3,
+        "shares": 1
+      },
+      "energy_score": 15
+    },
+    {
+      "content_id": "W0011",
+      "title": "실패 테스트",
+      "type": "did_you_know",
+      "published_at": "2026-04-20 09:43",
+      "post_id": "",
+      "permalink": "",
+      "success": false,
+      "insights": {
+        "likes": 10,
+        "comments": 5,
+        "saved": 3,
+        "shares": 1
+      },
+      "energy_score": 30,
+      "error": "API 인증 만료"
+    },
+    {
+      "content_id": "E2E",
+      "title": "드라이런",
+      "type": "quiz",
+      "published_at": "2026-04-20 09:53",
+      "post_id": "e2e",
+      "permalink": "",
+      "success": true,
+      "insights": null,
+      "energy_score": null
+    }
+  ]
+}

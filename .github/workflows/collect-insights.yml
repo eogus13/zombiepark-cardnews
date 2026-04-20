@@ -1,0 +1,44 @@
+name: "📈 인사이트 수집"
+
+on:
+  schedule:
+    # 매일 21:00 KST = 12:00 UTC
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+  INSTAGRAM_BUSINESS_ID: ${{ secrets.INSTAGRAM_BUSINESS_ID }}
+  DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: 📥 체크아웃
+        uses: actions/checkout@v4
+
+      - name: 🐍 Python 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 📦 의존성 설치
+        run: pip install -r requirements.txt
+
+      - name: 📈 인사이트 수집
+        run: python collect_insights.py
+
+      - name: 💾 인사이트 데이터 커밋
+        run: |
+          git config user.name "zombiepark-bot"
+          git config user.email "bot@zombiepark.com"
+          git add data/
+          git diff --staged --quiet || git commit -m "📈 insights: $(date +%Y-%m-%d)"
+          git push || true
