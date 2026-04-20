@@ -54,6 +54,17 @@
       "success": true,
       "insights": null,
       "energy_score": null
+    },
+    {
+      "content_id": "W0003",
+      "title": "좀비 아포칼립스에서 살아남는 3가지 생존 기술",
+      "type": "survival_skill",
+      "published_at": "2026-04-20 13:45",
+      "post_id": "dry_run",
+      "permalink": "",
+      "success": true,
+      "insights": null,
+      "energy_score": null
     }
   ]
 }
