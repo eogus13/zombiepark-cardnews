@@ -27,6 +27,44 @@
       "published": true,
       "scheduled_date": "2026-04-20",
       "published_date": "2026-04-20 13:25"
+    },
+    {
+      "id": "W0003",
+      "type": "survival_skill",
+      "weekday": "Monday",
+      "title": "좀비 아포칼립스에서 살아남는 3가지 생존 기술",
+      "slides": [
+        {
+          "slide": 1,
+          "text": "🧟 좀비 생존 가이드\n\n당신은 준비됐나요?"
+        },
+        {
+          "slide": 2,
+          "text": "🔥 규칙 1: 높은 곳을 확보하라\n\n좀비는 계단을 잘 못 올라간다"
+        },
+        {
+          "slide": 3,
+          "text": "💧 규칙 2: 물을 확보하라\n\n생존의 첫 번째 조건은 깨끗한 물"
+        },
+        {
+          "slide": 4,
+          "text": "🏃 규칙 3: 체력을 키워라\n\n영흥도 좀비파크에서\n실전 훈련하세요!"
+        }
+      ],
+      "caption": "좀비 아포칼립스가 온다면, 당신은 살아남을 수 있을까?\n\n영흥도 좀비파크에서 실전 생존 훈련!",
+      "hashtags": [
+        "#좀비파크",
+        "#ZombiePark",
+        "#영흥도",
+        "#생존기술",
+        "#좀비아포칼립스",
+        "#서바이벌",
+        "#생존체험"
+      ],
+      "published": false,
+      "published_date": null,
+      "created_date": "2026-04-20",
+      "scheduled_date": "2026-04-20"
     }
   ]
 }
