@@ -20,7 +20,7 @@ WEEKLY_TYPE_MAP = {
 
 
 def build_weekly_content(changes: dict,
-                         obsidian_path: str = "obsidian/좀비파크 프로젝트") -> list:
+                         obsidian_path: str = "obsidian_data") -> list:
     """다음 주 7일치 카드뉴스를 한 번에 생성.
 
     Args:
@@ -229,15 +229,24 @@ def _get_feedback_hint() -> str:
 
     hints = []
     recs = fb.get("recommendations", {})
-    if recs.get("to_marketer"):
-        hints.append(f"[마케터 피드백] {recs['to_marketer']}")
-    if recs.get("to_strategist"):
-        hints.append(f"[전략가 피드백] {recs['to_strategist']}")
 
-    patterns = fb.get("top_copy_patterns", [])
-    if patterns:
+    # recommendations가 리스트일 수도 있고 딕셔너리일 수도 있음
+    if isinstance(recs, list):
+        # 리스트 형태: 문자열 항목들을 그대로 힌트로 활용
+        for rec in recs[:3]:
+            hints.append(f"[피드백] {rec}")
+    elif isinstance(recs, dict):
+        if recs.get("to_marketer"):
+            hints.append(f"[마케터 피드백] {recs['to_marketer']}")
+        if recs.get("to_strategist"):
+            hints.append(f"[전략가 피드백] {recs['to_strategist']}")
+
+    # top_copy_patterns 또는 top_caption_patterns 둘 다 지원
+    patterns = fb.get("top_copy_patterns", []) or fb.get("top_caption_patterns", [])
+    if patterns and isinstance(patterns, list) and len(patterns) > 0:
         top = patterns[0]
-        hints.append(f"[고성과 패턴] {top.get('pattern', '')} — 예: {top.get('example', '')}")
+        if isinstance(top, dict):
+            hints.append(f"[고성과 패턴] {top.get('pattern', '')} — 예: {top.get('example', '')}")
 
     return "\n".join(hints) if hints else ""
 

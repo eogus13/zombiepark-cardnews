@@ -45,7 +45,7 @@ def run_weekly_update():
 
         # ─── Step 2: AI 콘텐츠 7개 생성 ───
         print("\n🤖 Step 2: AI 콘텐츠 생성 (7개)")
-        contents = build_weekly_content(changes)
+        contents = build_weekly_content(changes, obsidian_path=obsidian_path)
 
         if not contents:
             print("   ⚠️ 콘텐츠 생성 실패")
