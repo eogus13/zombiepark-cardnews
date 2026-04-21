@@ -140,6 +140,17 @@
         "energy_score": 0
       },
       "energy_score": 0
+    },
+    {
+      "content_id": "W0004",
+      "title": "🚨 좀비 사태 발생! 첫 1시간, 당신의 선택은?",
+      "type": "quiz",
+      "published_at": "2026-04-21 19:21",
+      "post_id": "18111454834829749",
+      "permalink": "https://www.instagram.com/p/DXY-HKGEjsF/",
+      "success": true,
+      "insights": null,
+      "energy_score": null
     }
   ]
 }
