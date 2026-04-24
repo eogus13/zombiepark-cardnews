@@ -1,51 +1,44 @@
 {
-  "2026-04-20": {
-    "id": "W0010",
-    "type": "did_you_know",
-    "title": "✨ 좀비파크, 단순한 놀이공원이 아닙니다.",
-    "weekday": "Monday"
-  },
-  "2026-04-21": {
-    "id": "W0004",
-    "type": "quiz",
-    "title": "🚨 좀비 사태 발생! 첫 1시간, 당신의 선택은?",
-    "weekday": "Tuesday"
-  },
-  "2026-04-22": {
-    "id": "W0005",
-    "type": "fact_check",
-    "title": "영화 '28일 후' 레이지 바이러스, 정말 가능할까? 🧟‍♀️",
-    "weekday": "Wednesday"
-  },
-  "2026-04-23": {
-    "id": "W0006",
-    "type": "survival_skill",
-    "title": "💧 전기가 끊겨도 OK! 안전한 식수 확보법 2가지",
-    "weekday": "Thursday"
-  },
-  "2026-04-24": {
-    "id": "W0007",
-    "type": "culture_story",
-    "title": "🛒 쇼핑몰을 배회하는 좀비? '시체들의 새벽' 속 숨겨진 이야기",
-    "weekday": "Friday"
-  },
   "2026-04-25": {
-    "id": "W0008",
+    "id": "W0011",
     "type": "scenario",
-    "title": "🩸 당신의 동료가 물렸다! 당신의 선택은?",
+    "title": "당신의 동료가 수상하다면? 👤",
     "weekday": "Saturday"
   },
   "2026-04-26": {
-    "id": "W0009",
+    "id": "W0012",
     "type": "yeongheung_tmi",
-    "title": "📍 영흥도, 왜 좀비 아포칼립스 최후의 보루인가? (TMI)",
+    "title": "영흥도가 좀비 아포칼립스에 최적? 🏝️",
     "weekday": "Sunday"
   },
   "2026-04-27": {
-    "id": "",
+    "id": "W0013",
     "type": "did_you_know",
-    "title": "",
-    "weekday": "Monday",
-    "note": "W0010은 4/20에 발행됨. 금요일 weekly-update에서 새 콘텐츠 생성 예정"
+    "title": "충격! 현실 속 '좀비'는 이미 존재한다? 🐜",
+    "weekday": "Monday"
+  },
+  "2026-04-28": {
+    "id": "W0014",
+    "type": "quiz",
+    "title": "🤫 소리가 생사를 가른다! 당신의 선택은?",
+    "weekday": "Tuesday"
+  },
+  "2026-04-29": {
+    "id": "W0015",
+    "type": "fact_check",
+    "title": "🌿 킹덤 좀비, '생사초'로 부활? 과학적으로 가능할까?",
+    "weekday": "Wednesday"
+  },
+  "2026-04-30": {
+    "id": "W0016",
+    "type": "survival_skill",
+    "title": "💡 문명 붕괴 후, 당신의 생존력을 높일 2가지 기술!",
+    "weekday": "Thursday"
+  },
+  "2026-05-01": {
+    "id": "W0017",
+    "type": "culture_story",
+    "title": "🧟‍♀️ '좀비'는 어디서 왔을까? 부두교의 섬뜩한 이야기!",
+    "weekday": "Friday"
   }
 }
