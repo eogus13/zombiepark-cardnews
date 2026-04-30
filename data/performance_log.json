@@ -311,8 +311,15 @@
       "post_id": "18088248899209852",
       "permalink": "https://www.instagram.com/p/DXvyIqMlF2c/",
       "success": true,
-      "insights": null,
-      "energy_score": null
+      "insights": {
+        "likes": 0,
+        "comments": 0,
+        "saved": 0,
+        "shares": 0,
+        "reach": 0,
+        "energy_score": 0
+      },
+      "energy_score": 0
     },
     {
       "content_id": "W0024",
@@ -322,8 +329,15 @@
       "post_id": "17988607307970895",
       "permalink": "https://www.instagram.com/p/DXwNet4Cn0Q/",
       "success": true,
-      "insights": null,
-      "energy_score": null
+      "insights": {
+        "likes": 0,
+        "comments": 0,
+        "saved": 0,
+        "shares": 0,
+        "reach": 0,
+        "energy_score": 0
+      },
+      "energy_score": 0
     }
   ]
 }
