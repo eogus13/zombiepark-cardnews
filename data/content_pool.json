@@ -1058,8 +1058,8 @@
       "journey_stage": "desire",
       "priority": 4,
       "id": "W0025",
-      "published": false,
-      "published_date": null,
+      "published": true,
+      "published_date": "2026-05-02 19:01",
       "created_date": "2026-05-01",
       "scheduled_date": "2026-05-02",
       "week_id": "2026-W17"
