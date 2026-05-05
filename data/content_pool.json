@@ -1183,8 +1183,8 @@
       "journey_stage": "interest",
       "priority": 4,
       "id": "W0028",
-      "published": false,
-      "published_date": null,
+      "published": true,
+      "published_date": "2026-05-05 19:47",
       "created_date": "2026-05-01",
       "scheduled_date": "2026-05-05",
       "week_id": "2026-W17"
