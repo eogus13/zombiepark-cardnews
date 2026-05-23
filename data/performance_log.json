@@ -734,6 +734,17 @@
         "energy_score": 0
       },
       "energy_score": 0
+    },
+    {
+      "content_id": "W0039",
+      "title": "임시 거점 사수, 당신의 선택은? 🚪",
+      "type": "scenario",
+      "published_at": "2026-05-23 19:33",
+      "post_id": "18099797524856279",
+      "permalink": "",
+      "success": true,
+      "insights": null,
+      "energy_score": null
     }
   ]
 }
