@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-05-17 21:56",
-  "period_posts": 36,
-  "overall_avg_energy": 1.4,
+  "generated_at": "2026-05-24 22:00",
+  "period_posts": 43,
+  "overall_avg_energy": 1.2,
   "type_averages": {
-    "quiz": 2.1,
-    "did_you_know": 6.2,
-    "survival_skill": 0.3,
+    "quiz": 1.9,
+    "did_you_know": 5.2,
+    "survival_skill": 0.2,
     "fact_check": 0.2,
     "culture_story": 0.2,
     "scenario": 0.0,
@@ -24,7 +24,7 @@
     "energy": 0
   },
   "recommendations": [
-    "did_you_know 유형이 가장 높은 반응 (평균 6.2)",
+    "did_you_know 유형이 가장 높은 반응 (평균 5.2)",
     "scenario 유형 개선 필요 (평균 0.0)"
   ],
   "top_caption_patterns": []
