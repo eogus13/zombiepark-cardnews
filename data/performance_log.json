@@ -941,8 +941,15 @@
       "post_id": "18094995821082147",
       "permalink": "https://www.instagram.com/p/DZKbT9WFapq/",
       "success": true,
-      "insights": null,
-      "energy_score": null
+      "insights": {
+        "likes": 0,
+        "comments": 0,
+        "saved": 0,
+        "shares": 0,
+        "reach": 0,
+        "energy_score": 0
+      },
+      "energy_score": 0
     }
   ]
 }
