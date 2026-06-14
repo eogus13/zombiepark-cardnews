@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-06-07 22:21",
-  "period_posts": 56,
-  "overall_avg_energy": 0.9,
+  "generated_at": "2026-06-14 22:27",
+  "period_posts": 63,
+  "overall_avg_energy": 0.8,
   "type_averages": {
-    "quiz": 1.7,
-    "did_you_know": 3.9,
+    "quiz": 1.4,
+    "did_you_know": 3.4,
     "survival_skill": 0.2,
     "fact_check": 0.1,
     "culture_story": 0.1,
     "scenario": 0.0,
-    "yeongheung_tmi": 0.0
+    "yeongheung_tmi": 0.1
   },
   "best_post": {
     "id": "W0011",
@@ -24,7 +24,7 @@
     "energy": 0
   },
   "recommendations": [
-    "did_you_know 유형이 가장 높은 반응 (평균 3.9)",
+    "did_you_know 유형이 가장 높은 반응 (평균 3.4)",
     "scenario 유형 개선 필요 (평균 0.0)"
   ],
   "top_caption_patterns": []
