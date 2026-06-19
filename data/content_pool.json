@@ -2942,8 +2942,8 @@
       "journey_stage": "interest",
       "priority": 3,
       "id": "W0066",
-      "published": false,
-      "published_date": null,
+      "published": true,
+      "published_date": "2026-06-19 21:45",
       "created_date": "2026-06-19",
       "scheduled_date": "2026-06-26",
       "week_id": "2026-W24"
