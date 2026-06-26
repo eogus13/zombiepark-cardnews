@@ -1265,8 +1265,15 @@
       "post_id": "18114421042859885",
       "permalink": "https://www.instagram.com/p/DaDEM50FZWP/",
       "success": true,
-      "insights": null,
-      "energy_score": null
+      "insights": {
+        "likes": 0,
+        "comments": 0,
+        "saved": 0,
+        "shares": 0,
+        "reach": 0,
+        "energy_score": 0
+      },
+      "energy_score": 0
     }
   ]
 }
