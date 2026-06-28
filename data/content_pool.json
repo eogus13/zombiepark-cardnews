@@ -3032,8 +3032,8 @@
       "journey_stage": "Awareness",
       "priority": 3,
       "id": "W0068",
-      "published": false,
-      "published_date": null,
+      "published": true,
+      "published_date": "2026-06-28 20:06",
       "created_date": "2026-06-26",
       "scheduled_date": "2026-06-28",
       "week_id": "2026-W25"
