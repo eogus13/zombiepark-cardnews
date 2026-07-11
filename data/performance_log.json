@@ -1517,8 +1517,15 @@
       "post_id": "18091990169063807",
       "permalink": "https://www.instagram.com/p/Daphqw-Foub/",
       "success": true,
-      "insights": null,
-      "energy_score": null
+      "insights": {
+        "likes": 0,
+        "comments": 0,
+        "saved": 0,
+        "shares": 0,
+        "reach": 0,
+        "energy_score": 0
+      },
+      "energy_score": 0
     }
   ]
 }
