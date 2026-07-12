@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-07-05 22:07",
-  "period_posts": 80,
+  "generated_at": "2026-07-12 21:56",
+  "period_posts": 86,
   "overall_avg_energy": 0.6,
   "type_averages": {
-    "quiz": 1.2,
+    "quiz": 1.1,
     "did_you_know": 2.8,
-    "survival_skill": 0.2,
+    "survival_skill": 0.1,
     "fact_check": 0.1,
     "culture_story": 0.1,
     "scenario": 0.0,
