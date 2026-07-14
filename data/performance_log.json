@@ -1571,8 +1571,15 @@
       "post_id": "18108576751807794",
       "permalink": "https://www.instagram.com/p/DaxTiWqn149/",
       "success": true,
-      "insights": null,
-      "energy_score": null
+      "insights": {
+        "likes": 0,
+        "comments": 0,
+        "saved": 0,
+        "shares": 0,
+        "reach": 0,
+        "energy_score": 0
+      },
+      "energy_score": 0
     }
   ]
 }
